@@ -1,0 +1,14 @@
+/vendor
+/public/wp
+/public/wp-content/uploads/*
+!/public/wp-content/uploads/.gitkeep
+/public/wp-content/plugins/*
+/public/env.php
+/.DS_Store
+composer.phar
+
+# Custom plugins and other not on packagist
+!/public/wp-content/plugins/conferencer
+#!/public/wp-content/plugins/waq-org
+/public/wp-content/themes/waq2014
+
