@@ -75,7 +75,7 @@ class Conferencer {
 		$this->include_files();
 	}
 
-	function include_files() {
+	public static function include_files() {
 		foreach (array(
 			'/models/custom_post_type.php',
 			'/models/session.php',
@@ -102,7 +102,7 @@ class Conferencer {
 		) as $include) include CONFERENCER_PATH.$include;
 	}
 
-	function styles_and_scripts() {
+	public static function styles_and_scripts() {
 		//wp_register_style('conferencer-jquery-ui', CONFERENCER_URL.'css/jquery-ui-1.8.16.custom.css', false, '1.8.16');
 		//wp_register_script('conferencer-jquery-ui', CONFERENCER_URL.'js/jquery-ui-1.8.16.custom.min.js', array('jquery'), '1.8.16', true);
 		wp_register_style('conferencer-jquery-ui', CONFERENCER_URL.'css/jquery-ui-1.8.16.custom.css', false, '1.8.16');
@@ -127,7 +127,7 @@ class Conferencer {
 		}
 	}
 
-	function admin_menu() {
+	public static function admin_menu() {
 		add_menu_page(
 	        "Conferencer",
 	        "Conferencer",
@@ -141,11 +141,11 @@ class Conferencer {
 		$GLOBALS['menu'][40] = array('', 'read', 'separator-2', '', 'wp-menu-separator');
 	}
 
-	function overview() {
+	public static function overview() {
 		include CONFERENCER_PATH.'/markup/overview.php';
 	}
 
-	function admin_notices() {
+	public static function admin_notices() {
 		$messages = get_option('conferencer_messages', array());
 		if (count($messages)) {
 			foreach ($messages as $message) { ?>
@@ -157,18 +157,18 @@ class Conferencer {
 		}
 	}
 
-	function add_admin_notice($message) {
+	public static function add_admin_notice($message) {
 		$messages = get_option('conferencer_messages', array());
 		$messages[] = $message;
 		update_option('conferencer_messages', $messages);
 	}
 
-	function activate() {
+	public static function activate() {
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
 	}
 
-	function deactivate() {
+	public static function deactivate() {
 		delete_option('conferencer_messages');
 		delete_option('conferencer_logo_regeneration_needed');
 		delete_option('conferencer_sponsors_widget_image_sizes');
@@ -176,7 +176,7 @@ class Conferencer {
 
 	// static user functions =========================================================
 
-	function add_meta(&$post) {
+	public static function add_meta(&$post) {
 		if (!$post || !$post->post_type || !in_array($post->post_type, self::$post_types)) return;
 
 		foreach (get_post_custom($post->ID) as $key => $value) {
@@ -186,7 +186,7 @@ class Conferencer {
 		}
 	}
 
-	function get_posts($post_type = 'post', $post_ids = false, $sort = 'order_sort') {
+	public static function get_posts($post_type = 'post', $post_ids = false, $sort = 'order_sort') {
 		if ($post_type == 'speakers') $post_type = 'speaker';
 		if ($post_type == 'sponsors') $post_type = 'sponsor';
 
@@ -211,7 +211,7 @@ class Conferencer {
 	}
 
 	// TODO: replace with custom SQL?
-	function get_sessions($post_ids) {
+	public static function get_sessions($post_ids) {
 		if (!is_array($post_ids)) $post_ids = array($post_ids);
 
 		$session_ids = array();
@@ -258,7 +258,7 @@ class Conferencer {
 
 	// sorts ==================================================================
 
-	function order_sort($a, $b) {
+	public static function order_sort($a, $b) {
 		$aOrder = get_post_meta($a->ID, '_conferencer_order', true);
 		$bOrder = get_post_meta($b->ID, '_conferencer_order', true);
 
@@ -266,12 +266,12 @@ class Conferencer {
 		return $aOrder < $bOrder ? -1 : 1;
 	}
 
-	function title_sort($a, $b) {
+	public static function title_sort($a, $b) {
 		if ($a->post_title == $b->post_title) return 0;
 		return strcmp($a->post_title, $b->post_title);
 	}
 
-	function start_time_sort($a, $b) {
+	public static function start_time_sort($a, $b) {
 		$aOrder = get_post_meta($a->ID, '_conferencer_starts', true);
 		$bOrder = get_post_meta($b->ID, '_conferencer_starts', true);
 

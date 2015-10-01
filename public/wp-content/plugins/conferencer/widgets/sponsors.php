@@ -4,11 +4,11 @@ add_action('after_setup_theme', array('Conferencer_Sponsors_Widget', 'add_image_
 add_action('widgets_init', array('Conferencer_Sponsors_Widget', 'init'));
 
 class Conferencer_Sponsors_Widget extends WP_Widget {
-	function init() {
+	public static function init() {
 		register_widget('Conferencer_Sponsors_Widget');
 	}
 	
-	function add_image_sizes() {
+	public static function add_image_sizes() {
 		foreach (get_option('conferencer_sponsors_widget_image_sizes', array()) as $id => $size) {
 			add_image_size(
 				"sponsors_widget_$id",
@@ -19,7 +19,7 @@ class Conferencer_Sponsors_Widget extends WP_Widget {
 	}
 	
 	function Conferencer_Sponsors_Widget() {
-		parent::WP_Widget(false, $name = "Sponsors Slideshow");
+		parent::__construct(false, $name = "Sponsors Slideshow");
 	}
 	
 	function widget($args, $instance) {
