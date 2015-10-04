@@ -1,5 +1,11 @@
 #!/bin/bash
 
+motdwarn="#!/bin/sh
+
+ echo \"INSTALLATION HAS NOT YET FINISHED. LET IT BE.\""
+echo "$motdwarn" > '/etc/update-motd.d/99-install-not-finished'
+chmod +x /etc/update-motd.d/99-install-not-finished
+
 # Keep upstart from complaining
 dpkg-divert --local --rename --add /sbin/initctl
 ln -sf /bin/true /sbin/initctl
@@ -13,10 +19,17 @@ apt-get update
 apt-get -y upgrade
 
 # Basic Requirements
-apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql php-apc pwgen python-setuptools curl git unzip
+apt-get -y install nginx php5-fpm php5-mysql php-apc pwgen python-setuptools curl git unzip
 
 # Wordpress Requirements
 apt-get -y install php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+
+# Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
+echo "mysql-server mysql-server/root_password password root" | sudo debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password root" | sudo debconf-set-selections
+apt-get -y install mysql-server
+
+mysql_secure_installation
 
 # Create project folders
 mkdir -p /www/sites/waq2016 /www/conf/waq2016 /www/logs/waq2016
@@ -27,3 +40,5 @@ wget -O /www/conf/waq2016/nginx.conf https://github.com/paulcote/2016.waq.paulco
 # Remove default and put WAQ conf
 unlink /etc/nginx/sites-enabled/default
 ln -s /www/conf/waq2016/nginx.conf /etc/nginx/sites-enabled/99-waq2016
+
+rm /etc/update-motd.d/99-install-not-finished
