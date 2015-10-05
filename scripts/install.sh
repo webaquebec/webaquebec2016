@@ -29,7 +29,15 @@ echo "mysql-server mysql-server/root_password password root" | sudo debconf-set-
 echo "mysql-server mysql-server/root_password_again password root" | sudo debconf-set-selections
 apt-get -y install mysql-server
 
-mysql_secure_installation
+# Setup required database structure
+mysql_install_db
+
+# MySQL Secure Installation as defined via: mysql_secure_installation
+mysql -uroot -p$DBPASSWD -e "DROP DATABASE test"
+mysql -uroot -p$DBPASSWD -e "DELETE FROM mysql.user WHERE User='root' AND NOT IN ('localhost', '127.0.0.1', '::1')"
+mysql -uroot -p$DBPASSWD -e "DELETE FROM mysql.user WHERE User=''"
+mysql -uroot -p$DBPASSWD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'"
+mysql -uroot -p$DBPASSWD -e "FLUSH PRIVILEGES"
 
 # Install other Requirements
 apt-get -y install php5-mysql curl git
