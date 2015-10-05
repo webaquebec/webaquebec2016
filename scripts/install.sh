@@ -56,6 +56,6 @@ ln -s /www/conf/waq2016/nginx.conf /etc/nginx/sites-enabled/99-waq2016
 
 rm /etc/update-motd.d/99-install-not-finished
 
-"$DBPASSWD" > /www/conf/waq2016/DBPASSWD
+echo "$DBPASSWD" > '/www/conf/waq2016/DBPASSWD'
 
-echo "Install is finished !"
+echo "Install has been completed."
