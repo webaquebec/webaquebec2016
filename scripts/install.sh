@@ -5,6 +5,7 @@ exec 1>/tmp/install.log 2>&1
 # Everything below will go to the file '/tmp/install.log':
 
 DBPASSWD="$(date +%s | sha256sum | base64 | head -c 32 ; echo)"
+echo "$DBPASSWD" > '/www/conf/waq2016/ROOTDBPASSWD'
 
 motdwarn="#!/bin/sh
 
@@ -42,7 +43,7 @@ mysql -uroot -p$DBPASSWD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_
 mysql -uroot -p$DBPASSWD -e "FLUSH PRIVILEGES"
 
 # Install other Requirements
-apt-get -y install php5-mysql curl git
+apt-get -y install php5-mysql php5-cli curl git
 
 # Create project folders
 mkdir -p /www/sites/waq2016 /www/conf/waq2016 /www/logs/waq2016
@@ -56,6 +57,8 @@ ln -s /www/conf/waq2016/nginx.conf /etc/nginx/sites-enabled/99-waq2016
 
 rm /etc/update-motd.d/99-install-not-finished
 
-echo "$DBPASSWD" > '/www/conf/waq2016/DBPASSWD'
+wget -O /tmp/start.sh https://github.com/paulcote/2016.waq.paulcote.net/raw/master/scripts/start.sh
 
 echo "Install has been completed."
+echo "You can run /tmp/start.sh to install base project if not using deploys."
+echo "Root MYSQL password has been written to /www/conf/waq2016/ROOTDBPASSWD. Please change it and delete this file."
