@@ -42,10 +42,13 @@ mysql -uroot -p$ROOTDBPASSWD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='tes
 mysql -uroot -p$ROOTDBPASSWD -e "FLUSH PRIVILEGES"
 
 # Install other Requirements
-apt-get -y install php5-mysql php5-cli curl git
+apt-get -y install php5-mysql php5-cli php5-gd curl git
 
 # Create project folders
 mkdir -p /www/sites/waq2016 /www/conf/waq2016 /www/logs/waq2016
+
+# Create nginx cache folder
+mkdir /usr/share/nginx/cache
 
 # Download nginx conf
 wget -O /www/conf/waq2016/nginx.conf https://github.com/paulcote/2016.waq.paulcote.net/raw/master/conf/nginx.conf
@@ -63,4 +66,4 @@ echo "$ROOTDBPASSWD" > '/www/conf/waq2016/ROOTDBPASSWD'
 echo "Install has been completed."
 echo "You can run /tmp/start.sh to install base project if not using deploys."
 echo "Root MYSQL password has been written to /www/conf/waq2016/ROOTDBPASSWD."
-echo "Please change it and delete this file after running start script ."
+echo "Please change it and delete this file after running start script."
