@@ -33,6 +33,6 @@ $WPKEYS
 define('WP_DEBUG', true);"
 echo "$ENVFILE" > '/www/sites/waq2016/public/env.php'
 
-chown -R www-data:www-data /www/sites/waq2016/public/uploads
+chown -R www-data:www-data /www/sites/waq2016/public/
 service php5-fpm restart
 service nginx restart
