@@ -2,7 +2,9 @@
 exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
 exec 1>/tmp/install.log 2>&1
-# Everything below will go to the file 'log.out':
+# Everything below will go to the file '/tmp/install.log':
+
+DBPASSWD="$(date +%s | sha256sum | base64 | head -c 32 ; echo)"
 
 motdwarn="#!/bin/sh
 
@@ -25,8 +27,8 @@ apt-get install -y nginx
 apt-get install -y php5-fpm
 
 # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
-echo "mysql-server mysql-server/root_password password root" | sudo debconf-set-selections
-echo "mysql-server mysql-server/root_password_again password root" | sudo debconf-set-selections
+echo "mysql-server mysql-server/root_password password $DBPASSWD" | sudo debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password $DBPASSWD" | sudo debconf-set-selections
 apt-get -y install mysql-server
 
 # Setup required database structure
@@ -53,3 +55,7 @@ unlink /etc/nginx/sites-enabled/default
 ln -s /www/conf/waq2016/nginx.conf /etc/nginx/sites-enabled/99-waq2016
 
 rm /etc/update-motd.d/99-install-not-finished
+
+"$DBPASSWD" > /www/conf/waq2016/DBPASSWD
+
+echo "Install is finished !"
