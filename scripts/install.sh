@@ -4,8 +4,8 @@ trap 'exec 2>&4 1>&3' 0 1 2 3
 exec 1>/tmp/install.log 2>&1
 # Everything below will go to the file '/tmp/install.log':
 
-DBPASSWD="$(date +%s | sha256sum | base64 | head -c 32 ; echo)"
-echo "$DBPASSWD" > '/www/conf/waq2016/ROOTDBPASSWD'
+ROOTDBPASSWD="$(date +%s | sha256sum | base64 | head -c 32 ; echo)"
+echo "$ROOTDBPASSWD" > '/www/conf/waq2016/ROOTDBPASSWD'
 
 motdwarn="#!/bin/sh
 
@@ -28,19 +28,19 @@ apt-get install -y nginx
 apt-get install -y php5-fpm
 
 # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
-echo "mysql-server mysql-server/root_password password $DBPASSWD" | sudo debconf-set-selections
-echo "mysql-server mysql-server/root_password_again password $DBPASSWD" | sudo debconf-set-selections
+echo "mysql-server mysql-server/root_password password $ROOTDBPASSWD" | sudo debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password $ROOTDBPASSWD" | sudo debconf-set-selections
 apt-get -y install mysql-server
 
 # Setup required database structure
 mysql_install_db
 
 # MySQL Secure Installation as defined via: mysql_secure_installation
-mysql -uroot -p$DBPASSWD -e "DROP DATABASE test"
-mysql -uroot -p$DBPASSWD -e "DELETE FROM mysql.user WHERE User='root' AND NOT IN ('localhost', '127.0.0.1', '::1')"
-mysql -uroot -p$DBPASSWD -e "DELETE FROM mysql.user WHERE User=''"
-mysql -uroot -p$DBPASSWD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'"
-mysql -uroot -p$DBPASSWD -e "FLUSH PRIVILEGES"
+mysql -uroot -p$ROOTDBPASSWD -e "DROP DATABASE test"
+mysql -uroot -p$ROOTDBPASSWD -e "DELETE FROM mysql.user WHERE User='root' AND NOT IN ('localhost', '127.0.0.1', '::1')"
+mysql -uroot -p$ROOTDBPASSWD -e "DELETE FROM mysql.user WHERE User=''"
+mysql -uroot -p$ROOTDBPASSWD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'"
+mysql -uroot -p$ROOTDBPASSWD -e "FLUSH PRIVILEGES"
 
 # Install other Requirements
 apt-get -y install php5-mysql php5-cli curl git
@@ -58,6 +58,7 @@ ln -s /www/conf/waq2016/nginx.conf /etc/nginx/sites-enabled/99-waq2016
 rm /etc/update-motd.d/99-install-not-finished
 
 wget -O /tmp/start.sh https://github.com/paulcote/2016.waq.paulcote.net/raw/master/scripts/start.sh
+chmod +x /tmp/start.sh
 
 echo "Install has been completed."
 echo "You can run /tmp/start.sh to install base project if not using deploys."
