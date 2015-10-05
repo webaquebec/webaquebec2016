@@ -2,13 +2,9 @@
 
 motdwarn="#!/bin/sh
 
- echo \"INSTALLATION HAS NOT YET FINISHED. LET IT BE.\""
+echo \"INSTALLATION HAS NOT YET FINISHED. LET IT BE.\""
 echo "$motdwarn" > '/etc/update-motd.d/99-install-not-finished'
 chmod +x /etc/update-motd.d/99-install-not-finished
-
-# Keep upstart from complaining
-dpkg-divert --local --rename --add /sbin/initctl
-ln -sf /bin/true /sbin/initctl
 
 # Set the Server Timezone to CST
 echo "America/Montreal" > /etc/timezone
@@ -18,8 +14,11 @@ dpkg-reconfigure -f noninteractive tzdata
 apt-get update
 apt-get -y upgrade
 
-# Basic Requirements
-apt-get -y install nginx php5-fpm php5-mysql curl git
+# Install Nginx
+apt-get install -y nginx
+
+# Install PHP5-FPM
+apt-get install -y php5-fpm
 
 # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
 echo "mysql-server mysql-server/root_password password root" | sudo debconf-set-selections
@@ -27,6 +26,9 @@ echo "mysql-server mysql-server/root_password_again password root" | sudo debcon
 apt-get -y install mysql-server
 
 mysql_secure_installation
+
+# Install other Requirements
+apt-get -y install php5-mysql curl git
 
 # Create project folders
 mkdir -p /www/sites/waq2016 /www/conf/waq2016 /www/logs/waq2016
