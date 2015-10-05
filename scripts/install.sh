@@ -5,7 +5,6 @@ exec 1>/tmp/install.log 2>&1
 # Everything below will go to the file '/tmp/install.log':
 
 ROOTDBPASSWD="$(date +%s | sha256sum | base64 | head -c 32 ; echo)"
-echo "$ROOTDBPASSWD" > '/www/conf/waq2016/ROOTDBPASSWD'
 
 motdwarn="#!/bin/sh
 
@@ -60,6 +59,8 @@ rm /etc/update-motd.d/99-install-not-finished
 wget -O /tmp/start.sh https://github.com/paulcote/2016.waq.paulcote.net/raw/master/scripts/start.sh
 chmod +x /tmp/start.sh
 
+echo "$ROOTDBPASSWD" > '/www/conf/waq2016/ROOTDBPASSWD'
 echo "Install has been completed."
 echo "You can run /tmp/start.sh to install base project if not using deploys."
-echo "Root MYSQL password has been written to /www/conf/waq2016/ROOTDBPASSWD. Please change it and delete this file."
+echo "Root MYSQL password has been written to /www/conf/waq2016/ROOTDBPASSWD."
+echo "Please change it and delete this file after running start script ."
