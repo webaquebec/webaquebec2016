@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Contact
+Template Name: Horaire
 */
 global $post;
 
@@ -12,4 +12,4 @@ $context = array_merge($context, array(
     'post' => $post
 ));
 
-Timber::render('contact.twig', $context);
+Timber::render('schedule.twig', $context);

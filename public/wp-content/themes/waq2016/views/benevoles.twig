@@ -1,0 +1,11 @@
+<section class="panel clearfix">
+    <div class="box col-1-2 row-1-1">
+        <h2>Bénévoles</h2>
+    </div>
+    <div class="box col-1-2 row-1-1">
+        Liste<br>
+        {% for benevole in benevoles %}
+            {{benevole.post_title}}<br>
+        {% endfor %}
+    </div>
+</section>
