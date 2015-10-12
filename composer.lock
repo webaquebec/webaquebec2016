@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f94c9fc6c97f271c9db189fcfd6edf4",
-    "content-hash": "874af41723ec80eca6887d99b2be3551",
+    "hash": "86aa3e1a8d494138f130c22beb5de087",
+    "content-hash": "9e48edd3fd7b3f1fa17824f799d7c186",
     "packages": [
         {
             "name": "composer/installers",
@@ -159,26 +159,6 @@
             "type": "webroot"
         },
         {
-            "name": "wpackagist-plugin/acf-field-date-time-picker",
-            "version": "2.0.18.1",
-            "source": {
-                "type": "svn",
-                "url": "http://plugins.svn.wordpress.org/acf-field-date-time-picker/",
-                "reference": "tags/2.0.18.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/acf-field-date-time-picker.2.0.18.1.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/acf-field-date-time-picker/"
-        },
-        {
             "name": "wpackagist-plugin/advanced-custom-fields",
             "version": "4.4.3",
             "source": {
@@ -197,6 +177,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/advanced-custom-fields/"
+        },
+        {
+            "name": "wpackagist-plugin/password-protected",
+            "version": "2.0.1",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/password-protected/",
+                "reference": "tags/2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/password-protected.2.0.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/password-protected/"
         },
         {
             "name": "wpackagist-plugin/timber-library",
