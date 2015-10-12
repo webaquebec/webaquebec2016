@@ -12,6 +12,10 @@ cd /www/sites/waq2016
 curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 
+ROOTDBPASSWD="$(cat /www/conf/waq2016/ROOTDBPASSWD)"
+WPDBPASSWD="$(date +%s | sha256sum | base64 | head -c 32 ; echo)"
+echo "$WPDBPASSWD" > '/www/conf/waq2016/WPDBPASSWD'
+
 # MySQL Secure Installation as defined via: mysql_secure_installation
 mysql -uroot -p$ROOTDBPASSWD -e "CREATE DATABASE waq2016 DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 mysql -uroot -p$ROOTDBPASSWD -e "CREATE USER 'waq2016'@'localhost' IDENTIFIED BY '$WPDBPASSWD';"
