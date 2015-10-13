@@ -15,7 +15,7 @@
             <h3>Hôtels</h3>
             <ul>
                 {% for hotel in hotels %}
-                    <li>{{hotel.get_field('emplacement')|distance}}km _ {{hotel.post_title}} _ {{resto.get_field('informations')}}</li>
+                    <li>{{hotel.get_field('emplacement')|distance}}km _ {{hotel.post_title}} _ {{hotel.get_field('informations')}}</li>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -24,7 +24,7 @@
             <h3>Stationnements</h3>
             <ul>
                 {% for parking in parkings %}
-                    <li>{{parking.get_field('emplacement')|distance}}km _ {{parking.post_title}} _ {{resto.get_field('informations')}}</li>
+                    <li>{{parking.get_field('emplacement')|distance}}km _ {{parking.post_title}} _ {{parking.get_field('informations')}}</li>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -33,7 +33,7 @@
             <h3>Magasins</h3>
             <ul>
                 {% for shop in shops %}
-                    <li>{{shop.get_field('emplacement')|distance}}km _ {{shop.post_title}} _ {{resto.get_field('informations')}}</li>
+                    <li>{{shop.get_field('emplacement')|distance}}km _ {{shop.post_title}} _ {{shop.get_field('informations')}}</li>
                 {% endfor %}
             </ul>
         {% endif %}
