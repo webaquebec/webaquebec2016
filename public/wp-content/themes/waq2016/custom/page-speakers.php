@@ -3,21 +3,17 @@
 if(function_exists("register_field_group"))
 {
 	register_field_group(array (
-		'id' => 'acf_intro',
-		'title' => 'Intro',
+		'id' => 'acf_speakers',
+		'title' => 'Speakers',
 		'fields' => array (
 			array (
-				'key' => 'field_561030e3d8c03',
-				'label' => 'Video',
-				'name' => 'video',
-				'type' => 'text',
-				'instructions' => 'iFrame URL vers youtube, vimeo',
+				'key' => 'field_561c45cd12286',
+				'label' => 'Quote',
+				'name' => 'quote',
+				'type' => 'wysiwyg',
 				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
+				'toolbar' => 'full',
+				'media_upload' => 'yes',
 			),
 		),
 		'location' => array (
@@ -32,7 +28,7 @@ if(function_exists("register_field_group"))
 				array (
 					'param' => 'page_template',
 					'operator' => '==',
-					'value' => 'home-intro.php',
+					'value' => 'home-speakers.php',
 					'order_no' => 1,
 					'group_no' => 0,
 				),

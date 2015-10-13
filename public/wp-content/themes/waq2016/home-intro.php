@@ -16,4 +16,4 @@ $context = array_merge($context, array(
     ))
 ));
 
-Timber::render('intro.twig', $context);
+Timber::render('home/intro.twig', $context);

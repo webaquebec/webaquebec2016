@@ -1,0 +1,14 @@
+{% extends "layouts/base.twig" %}
+
+{% block content %}
+
+    <h1>Blogue</h1>
+    <p>Toute l’actualité autour du Web à Québec</p>
+
+    {% for post in posts %}
+        <h2>{{ post.title }}</h2>
+        <p>Par {{post.author.name}}</p>
+        <p>{{post.post_content|excerpt(30)}}</p>
+        <a href="{{post.link}}">Lire l'article</a>
+    {% endfor %}
+{% endblock %}

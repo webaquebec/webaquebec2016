@@ -25,5 +25,3 @@
 		array_unshift($templates, 'home.twig');
 	}
 	Timber::render($templates, $context);
-
-

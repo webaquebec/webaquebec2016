@@ -1,0 +1,17 @@
+<section class="panel clearfix">
+    <div class="box col-1-2 row-1-1">
+        <h2>Bénévoles</h2>
+    </div>
+    <div class="box col-1-2 row-1-1">
+        {% for benevole in benevoles %}
+            {% if loop.index == 9 %}
+                <div class="box col-1-2 row-1-5">
+                    {{post.get_field('quote')}}
+                </div>
+            {% endif %}
+            <div class="box col-1-4 row-1-5">
+                {{benevole.post_title}}
+            </div>
+        {% endfor %}
+    </div>
+</section>

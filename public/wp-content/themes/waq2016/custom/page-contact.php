@@ -3,21 +3,26 @@
 if(function_exists("register_field_group"))
 {
 	register_field_group(array (
-		'id' => 'acf_intro',
-		'title' => 'Intro',
+		'id' => 'acf_contact',
+		'title' => 'Contact',
 		'fields' => array (
 			array (
-				'key' => 'field_561030e3d8c03',
-				'label' => 'Video',
-				'name' => 'video',
-				'type' => 'text',
-				'instructions' => 'iFrame URL vers youtube, vimeo',
+				'key' => 'field_561c56f9996db',
+				'label' => 'Infos de contact',
+				'name' => 'infos',
+				'type' => 'wysiwyg',
 				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
+				'toolbar' => 'full',
+				'media_upload' => 'yes',
+			),
+			array (
+				'key' => 'field_561c5708f17f9',
+				'label' => 'Réseaux sociaux',
+				'name' => 'social',
+				'type' => 'wysiwyg',
+				'default_value' => '',
+				'toolbar' => 'full',
+				'media_upload' => 'yes',
 			),
 		),
 		'location' => array (
@@ -32,7 +37,7 @@ if(function_exists("register_field_group"))
 				array (
 					'param' => 'page_template',
 					'operator' => '==',
-					'value' => 'home-intro.php',
+					'value' => 'home-contact.php',
 					'order_no' => 1,
 					'group_no' => 0,
 				),

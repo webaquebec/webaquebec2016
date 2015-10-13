@@ -41,6 +41,7 @@ body{
     border: 2px solid red;
     float: left;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
     .box.col-1-1{

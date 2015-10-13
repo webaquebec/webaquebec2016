@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Conférenciers
+Template Name: Partenaires
 */
 global $post;
 
@@ -10,10 +10,10 @@ $post = new TimberPost();
 // Set context
 $context = array_merge($context, array(
     'post' => $post,
-    'speakers' =>  Timber::get_posts(array(
+    'sponsors' =>  Timber::get_posts(array(
       	'posts_per_page'   => -1,
-      	'post_type'        => 'speaker'
+      	'post_type'        => 'sponsor'
     ))
 ));
 
-Timber::render('home/speakers.twig', $context);
+Timber::render('home/sponsors.twig', $context);
