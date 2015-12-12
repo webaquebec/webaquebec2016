@@ -5,7 +5,7 @@ WPDBPASSWD="$(date +%s | sha256sum | base64 | head -c 32 ; echo)"
 echo "$WPDBPASSWD" > '/www/conf/waq2016/WPDBPASSWD'
 
 # Clone project
-git clone https://github.com/paulcote/2016.waq.paulcote.net.git /www/sites/waq2016
+git clone https://github.com/webaquebec/webaquebec2016.git /www/sites/waq2016
 
 # Install & Run composer
 cd /www/sites/waq2016
