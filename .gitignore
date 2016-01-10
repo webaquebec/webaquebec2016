@@ -12,3 +12,4 @@ composer.phar
 #!/public/wp-content/plugins/waq-org
 /public/wp-content/themes/waq2014
 
+.DS_Store

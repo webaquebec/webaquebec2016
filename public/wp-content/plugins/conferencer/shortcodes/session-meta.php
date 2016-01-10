@@ -83,11 +83,11 @@ class Conferencer_Shortcode_Session_Meta extends Conferencer_Shortcode {
 
 		$output = $output_session = $output_content = "";
 
-    $user_sessions = get_user_sessions();
-    $user_session_selected = false;
-    if(in_array($post->ID, $user_sessions)){
-      $user_session_selected = true;
-    }
+   // $user_sessions = get_user_sessions();
+    //$user_session_selected = false;
+   // if(in_array($post->ID, $user_sessions)){
+    //  $user_session_selected = true;
+    //}
 
 		foreach (explode(',', $show) as $type) {
 			$type = trim($type);
@@ -313,10 +313,11 @@ class Conferencer_Shortcode_Session_Meta extends Conferencer_Shortcode {
     $output .= '</div></div>';
     $output .= $output_session;
 
-    if($user_session_selected){
-      $output .= '<button class="session-bookmark remove"><span class="visuallyhidden">Retirer cette conférence à mon horaire</span></button>';
-    }
-    else{
+    //if($user_session_selected){
+     // $output .= '<button class="session-bookmark remove"><span class="visuallyhidden">Retirer cette conférence à mon horaire</span></button>';
+   // }
+   // else
+{
 		  $output .= '<button class="session-bookmark add"><span class="visuallyhidden">Ajouter cette conférence à mon horaire</span></button>';
 	  }
 

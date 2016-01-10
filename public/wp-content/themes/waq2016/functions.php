@@ -22,10 +22,51 @@ if (!class_exists('Timber')){
 	return;
 }
 
+$waq_custom_post_types = ['sponsor_level','sponsor','track','time_slot','session','speaker', 'company','room'];
+
+function wpsd_add_rest_args(){
+
+        global $wp_post_types, $waq_custom_post_types;
+
+        foreach($waq_custom_post_types as $key){
+
+            if(!$wp_post_types[$key])
+                    continue;
+
+            $wp_post_types[$key]->show_in_rest = true;
+            $wp_post_types[$key]->rest_base = $key;
+        }
+}
+function waq_register_meta_field() {
+
+	global $waq_custom_post_types;
+
+        $post_types = array_merge(['post'], $waq_custom_post_types);
+
+        foreach($post_types as $key){
+            register_rest_field($key,
+                'waq_meta',
+                array(
+                    'get_callback'    => 'waq_get_post_meta',
+                    'update_callback' => null,
+                    'schema'          => null,
+                )
+            );
+        }
+}
+
+function waq_get_post_meta( $object, $field_name, $request ) {
+	return get_post_meta( $object[ 'id' ] );
+}
+
+add_action('init', 'wpsd_add_rest_args', 30);
+add_action('rest_api_init', 'waq_register_meta_field');
 /**
  * Site class
  */
 class WAQ2016Site extends TimberSite {
+
+
 
 	/**
 	 * Setup the site
@@ -39,14 +80,25 @@ class WAQ2016Site extends TimberSite {
 
 		add_filter('timber_context', array($this, 'addToContext'));
 		add_filter('get_twig', array($this, 'addToTwig'));
+        add_action('init', array($this, 'custom_rewrite_basic'));
+        add_filter( 'query_vars', array($this, 'api_query_vars') );
 
 		$this->deactivateSearch();
 
 		parent::__construct();
 	}
 
+    function custom_rewrite_basic() {
+        add_rewrite_rule('api/([^/]+)/?', 'index.php?pagename=api&api_type=$matches[1]', 'top');
+    }
+
+    function api_query_vars( $query_vars ) {
+        $query_vars[] = 'api_type';
+        return $query_vars;
+    }
+
 	function addImagesSizes(){
-	
+
 	}
 
 	/**
@@ -69,7 +121,7 @@ class WAQ2016Site extends TimberSite {
 	 */
 	function addToTwig(Twig_Environment $twig){
 		$twig->addExtension(new Twig_Extension_StringLoader());
-		
+
 		return $twig;
 	}
 
@@ -99,7 +151,6 @@ class WAQ2016Site extends TimberSite {
 		}
 	}
 }
-
 /**
  * Initialize the site
  */
