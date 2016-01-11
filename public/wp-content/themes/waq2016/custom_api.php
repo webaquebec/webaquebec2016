@@ -17,7 +17,7 @@ else{
     $routes = array_slice($routes, 2);
 
     echo '<h1>WAQ API</h1>';
-    echo '<h2>Public routes availables</h2>';
+    echo '<h2>Public routes available</h2>';
     foreach ($routes as $key => $route) {
         $cleanName = str_replace('api-','',$route);
         $cleanName = str_replace('.php','',$cleanName);
