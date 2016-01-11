@@ -22,7 +22,7 @@ if (!class_exists('Timber')){
 	return;
 }
 
-$waq_custom_post_types = ['sponsor_level','sponsor','track','time_slot','session','speaker', 'company','room'];
+$waq_custom_post_types = ['place','benevole', 'sponsor_level','sponsor','track','time_slot','session','speaker', 'company','room'];
 
 function wpsd_add_rest_args(){
 
