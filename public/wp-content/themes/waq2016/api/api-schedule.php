@@ -12,8 +12,8 @@ foreach ($timeslots as $key => $slot) {
     $acfs = get_fields($slot->ID);
     $slot = $timeslots[$key] = array_merge((array) $slot,(array) $customs,(array) $acfs);
 
-    $dayStart = date('Y-m-d\T00:00:00',$timeslots[$key]['_conferencer_starts'][1]);
-    $dayEnd = date('Y-m-d\T23:59:59',$timeslots[$key]['_conferencer_starts'][1]);
+    $dayStart = date('Y-m-d\T00:00:00',get_post_meta($slot['ID'],'_conferencer_starts',true));
+    $dayEnd = date('Y-m-d\T23:59:59',get_post_meta($slot['ID'],'_conferencer_ends',true));
     if(!array_key_exists($dayStart,$days)){
         $day = array(
             'start' => $dayStart,
@@ -24,8 +24,8 @@ foreach ($timeslots as $key => $slot) {
     }
 
     $block = array(
-        'start' => date('Y-m-d\TH:i:s',$timeslots[$key]['_conferencer_starts'][1]),
-        'end' => date('Y-m-d\TH:i:s',$timeslots[$key]['_conferencer_ends'][1]),
+        'start' => date('Y-m-d\TH:i:s',get_post_meta($slot['ID'],'_conferencer_starts',true)),
+        'end' => date('Y-m-d\TH:i:s',get_post_meta($slot['ID'],'_conferencer_ends',true)),
         'waq_title' => $slot['post_title'],
         'events' => getSessionsForTimeSlot($slot)
     );
@@ -33,8 +33,24 @@ foreach ($timeslots as $key => $slot) {
     $days[$dayStart]['blocks'][] = $block;
 }
 
+foreach ($days as $key => $day) {
+    usort($day['blocks'], "sortByDates");
+    $days[$key] = $day;
+}
+
+usort($days, "sortByDates");
+
 header('Content-Type: application/json');
 echo json_encode($days);
+
+
+function sortByDates($a, $b)
+{
+    if (strtotime($a['start']) == strtotime($b['start'])) {
+        return 0;
+    }
+    return (strtotime($a['start']) < strtotime($b['start'])) ? -1 : 1;
+}
 
 
 function getSessionsForTimeSlot($slot){
@@ -52,10 +68,10 @@ function getSessionsForTimeSlot($slot){
 
     $formatedPosts = array();
     foreach ($posts as $key => $post) {
-        $formatedPost[] = formatSession($post);
+        $formatedPost = formatSession($post);
         $formatedPost['schedule'] = array(
-            'start' => date('Y-m-d\TH:i:s',$slot['_conferencer_starts'][1]),
-            'end' => date('Y-m-d\TH:i:s',$slot['_conferencer_ends'][1])
+            'start' => date('Y-m-d\TH:i:s',get_post_meta($slot['ID'],'_conferencer_starts',true)),
+            'end' => date('Y-m-d\TH:i:s',get_post_meta($slot['ID'],'_conferencer_ends',true))
         );
         $formatedPosts[] = $formatedPost;
     }
