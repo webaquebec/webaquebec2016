@@ -111,6 +111,17 @@ function getRoom($id){
     );
 }
 
+function getTrack($id){
+    $post = get_post($id);
+    $acfs = get_fields($post->ID);
+    $post = array_merge((array) $post,(array) $acfs);
+    return array(
+        'id' => $post['ID'],
+        'name' => $post['post_title'],
+        'color' => ''
+    );
+}
+
 function formatSession($post){
     $acfs = get_fields($post->ID);
     $customs = array();
@@ -128,6 +139,7 @@ function formatSession($post){
         'title' => $post['post_title'],
         'by' => getSpeakers($post['speakers']),
         'room' => getRoom($post['room']),
+        'track' => getRoom($post['track']),
         'details' => $post['post_content']
     );
 }
