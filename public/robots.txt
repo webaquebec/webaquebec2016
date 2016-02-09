@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /
 Allow: /api/
 Allow: /wp-json/
+Allow: /wp-content/
