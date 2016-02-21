@@ -102,24 +102,29 @@ function getSpeakers($ids){
 }
 
 function getRoom($id){
+    if(empty($id)){
+        return null;
+    }
     $post = get_post($id);
     $acfs = get_fields($post->ID);
     $post = array_merge((array) $post,(array) $acfs);
     return array(
         'id' => $post['ID'],
         'name' => $post['post_title'],
-        'color' => ''
+        'color' => (array_key_exists('color',$post) ? $post['color'] : 'grey')
     );
 }
 
 function getTrack($id){
+    if(empty($id)){
+        return null;
+    }
     $post = get_post($id);
     $acfs = get_fields($post->ID);
     $post = array_merge((array) $post,(array) $acfs);
     return array(
         'id' => $post['ID'],
-        'name' => $post['post_title'],
-        'color' => ''
+        'name' => $post['post_title']
     );
 }
 
@@ -140,7 +145,7 @@ function formatSession($post){
         'title' => $post['post_title'],
         'by' => getSpeakers($post['speakers']),
         'room' => getRoom($post['room']),
-        'track' => getRoom($post['track']),
+        'track' => getTrack($post['track']),
         'details' => $post['post_content']
     );
 }

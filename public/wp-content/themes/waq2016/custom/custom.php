@@ -10,6 +10,7 @@ include_once('page-contact.php');
 include_once('benevole.php');
 include_once('repertoire.php');
 
+include_once('room.php');
 include_once('session.php');
 
 include_once('images.php');
