@@ -12,6 +12,7 @@ include_once('repertoire.php');
 
 include_once('room.php');
 include_once('session.php');
+include_once('timeslot.php');
 
 include_once('images.php');
 include_once('social.php');

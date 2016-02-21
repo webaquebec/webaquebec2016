@@ -28,6 +28,7 @@ foreach ($timeslots as $key => $slot) {
         'start' => date('Y-m-d\TH:i:s',get_post_meta($slot['ID'],'_conferencer_starts',true)),
         'end' => date('Y-m-d\TH:i:s',get_post_meta($slot['ID'],'_conferencer_ends',true)),
         'waq_title' => $slot['post_title'],
+        'special' => (get_field('is_special',$slot['ID']) ? true : false),
         'events' => getSessionsForTimeSlot($slot)
     );
 
@@ -146,6 +147,6 @@ function formatSession($post){
         'by' => getSpeakers($post['speakers']),
         'room' => getRoom($post['room']),
         'track' => getTrack($post['track']),
-        'details' => $post['post_content']
+        'details' => (array_key_exists('description',$post) && !empty($post['description']) ? $post['description'] : $post['post_content'])
     );
 }
