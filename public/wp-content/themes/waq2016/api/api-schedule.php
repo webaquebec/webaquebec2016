@@ -16,6 +16,7 @@ foreach ($timeslots as $key => $slot) {
     $dayEnd = date('Y-m-d\T23:59:59',get_post_meta($slot['ID'],'_conferencer_ends',true));
     if(!array_key_exists($dayStart,$days)){
         $day = array(
+            'id' => $slot['ID'],
             'start' => $dayStart,
             'end' => $dayEnd,
             'blocks' => array()
