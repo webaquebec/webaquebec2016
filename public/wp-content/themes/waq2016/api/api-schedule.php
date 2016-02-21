@@ -40,6 +40,7 @@ foreach ($days as $key => $day) {
 
 usort($days, "sortByDates");
 
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 echo json_encode($days);
 
@@ -79,22 +80,22 @@ function getSessionsForTimeSlot($slot){
 }
 
 function getSpeakers($ids){
+    $formatedPosts = array();
     if(is_array($ids)){
         $ids = array_map('intval', $ids);
-    }
-    $posts = get_posts(array(
-        'posts_per_page'   => -1,
-        'post_type'        => 'speaker',
-    	'post__in'         => (is_array($ids) ? $ids : array())
-    ));
-    $formatedPosts = array();
-    foreach ($posts as $key => $post) {
-        $acfs = get_fields($post->ID);
-        $post = array_merge((array) $post,(array) $acfs);
-        $formatedPosts[] = array(
-            'name' => $post['post_title'],
-            'pic' => (array_key_exists('image_thumbnail',$post) ? $post['image_thumbnail'] : null)
-        );
+        $posts = get_posts(array(
+            'posts_per_page'   => -1,
+            'post_type'        => 'speaker',
+        	'post__in'         => (is_array($ids) ? $ids : array())
+        ));
+        foreach ($posts as $key => $post) {
+            $acfs = get_fields($post->ID);
+            $post = array_merge((array) $post,(array) $acfs);
+            $formatedPosts[] = array(
+                'name' => $post['post_title'],
+                'pic' => (array_key_exists('image_thumbnail',$post) ? $post['image_thumbnail'] : null)
+            );
+        }
     }
     return $formatedPosts;
 }
