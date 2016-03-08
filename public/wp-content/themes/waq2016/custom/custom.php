@@ -16,3 +16,6 @@ include_once('timeslot.php');
 
 include_once('images.php');
 include_once('social.php');
+
+include_once('device.php');
+include_once('feed_item.php');

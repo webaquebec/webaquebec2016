@@ -11,5 +11,6 @@ composer.phar
 !/public/wp-content/plugins/conferencer
 #!/public/wp-content/plugins/waq-org
 /public/wp-content/themes/waq2014
+/public/wp-content/themes/waq2016/custom/twitter_conf.php
 
 .DS_Store

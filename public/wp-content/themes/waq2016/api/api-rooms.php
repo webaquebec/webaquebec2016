@@ -2,7 +2,7 @@
 
 $posts = get_posts(array(
     'posts_per_page'   => -1,
-    'post_type'        => 'sponsor'
+    'post_type'        => 'room'
 ));
 
 foreach ($posts as $key => $post) {
@@ -16,6 +16,5 @@ foreach ($posts as $key => $post) {
     $posts[$key] = array_merge((array) $post,(array) $customs,(array) $acfs);
 }
 
-header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 echo json_encode($posts);
