@@ -1,31 +1,34 @@
 <?php
 
+$postdata = file_get_contents("php://input");
+$device = json_decode($postdata);
+
 $postArgs = array(
     'post_status' => 'publish',
-    'post_title' => $_POST['uuid'],
+    'post_title' => $device->uuid,
     'post_type' => 'device',
     'post_date' => date("Y-m-d H:i:s")
 );
 
-if ($id = waq2016_device_exists($_POST['uuid'])) {
+if ($id = waq2016_device_exists($device->uuid)) {
     //Post arguments generaux
     $postArgs['ID'] = $id;
 }
 
 if (isset($postArgs['ID'])) {
-    if(array_key_exists('location',$_POST)){
-        add_post_meta($id, 'location', $_POST['location'], true);
+    if($device->location){
+        add_post_meta($id, 'location', $device->location, true);
     }
-    if(array_key_exists('schedule',$_POST)){
-        add_post_meta($id, 'schedule', $_POST['schedule'], true);
+    if($device->schedule){
+        add_post_meta($id, 'schedule', $device->schedule, true);
     }
 } else {
     $id = wp_insert_post($postArgs);
-    if(array_key_exists('location',$_POST)){
-        add_post_meta($id, 'location', $_POST['location'], true);
+    if($device->location){
+        add_post_meta($id, 'location', $device->location, true);
     }
-    if(array_key_exists('schedule',$_POST)){
-        add_post_meta($id, 'schedule', $_POST['schedule'], true);
+    if($device->schedule){
+        add_post_meta($id, 'schedule', $device->schedule, true);
     }
 }
 

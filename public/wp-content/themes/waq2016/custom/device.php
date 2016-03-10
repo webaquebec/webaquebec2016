@@ -20,7 +20,7 @@ function waq2016_add_device_post_type() {
          'menu_icon'=>'dashicons-admin-users',
          'public' => true,
          'has_archive' => true,
-         'supports' => array('title')
+         'supports' => array('title','custom-fields')
      )
  );
 }
