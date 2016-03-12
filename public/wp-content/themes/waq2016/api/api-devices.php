@@ -21,22 +21,18 @@ if (isset($postArgs['ID'])) {
 }
 
 if(isset($device->location)){
-    if(get_post_meta($id, 'location', true)){
-        update_post_meta($id, 'location', $device->location);
-    }
-    else{
-        add_post_meta($id, 'location', $device->location, true);
-    }
+    update_post_meta($id, 'location', $device->location);
 }
 
 if(isset($device->schedule)){
-    if(get_post_meta($id, 'schedule', true)){
-        update_post_meta($id, 'schedule', $device->schedule);
-    }
-    else{
-        add_post_meta($id, 'schedule', $device->schedule, true);
-    }
+    update_post_meta($id, 'schedule', $device->schedule);
 }
+
+$post = get_post($id);
+$metas = get_post_meta($post->ID);
+$post = array_merge((array) $post,(array) $metas);
+header('Content-Type: application/json');
+echo json_encode($post);
 
 function waq2016_device_exists($identifier) {
     global $wpdb;
