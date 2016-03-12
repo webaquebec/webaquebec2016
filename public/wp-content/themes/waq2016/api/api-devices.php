@@ -20,8 +20,6 @@ if (isset($postArgs['ID'])) {
     $id = wp_insert_post($postArgs);
 }
 
-var_dump(($device->location ? $device->location : ""));
-
 if(isset($device->location)){
     update_post_meta($id, 'location', ($device->location ? $device->location : ""));
 }
