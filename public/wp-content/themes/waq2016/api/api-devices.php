@@ -20,12 +20,14 @@ if (isset($postArgs['ID'])) {
     $id = wp_insert_post($postArgs);
 }
 
+var_dump(($device->location ? $device->location : ""));
+
 if(isset($device->location)){
-    update_post_meta($id, 'location', $device->location);
+    update_post_meta($id, 'location', ($device->location ? $device->location : ""));
 }
 
 if(isset($device->schedule)){
-    update_post_meta($id, 'schedule', $device->schedule);
+    update_post_meta($id, 'schedule', ($device->schedule ? $device->schedule : ""));
 }
 
 $post = get_post($id);
