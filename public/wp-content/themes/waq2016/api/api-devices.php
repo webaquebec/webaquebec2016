@@ -20,18 +20,22 @@ if (isset($postArgs['ID'])) {
     $id = wp_insert_post($postArgs);
 }
 
-if(get_post_meta($id, 'location', true)){
-    update_post_meta($id, 'location', $device->location);
-}
-else{
-    add_post_meta($id, 'location', $device->location, true);
+if($device->location){
+    if(get_post_meta($id, 'location', true)){
+        update_post_meta($id, 'location', $device->location);
+    }
+    else{
+        add_post_meta($id, 'location', $device->location, true);
+    }
 }
 
-if(get_post_meta($id, 'schedule', true)){
-    update_post_meta($id, 'schedule', $device->schedule);
-}
-else{
-    add_post_meta($id, 'schedule', $device->schedule, true);
+if($device->schedule){
+    if(get_post_meta($id, 'schedule', true)){
+        update_post_meta($id, 'schedule', $device->schedule);
+    }
+    else{
+        add_post_meta($id, 'schedule', $device->schedule, true);
+    }
 }
 
 function waq2016_device_exists($identifier) {
