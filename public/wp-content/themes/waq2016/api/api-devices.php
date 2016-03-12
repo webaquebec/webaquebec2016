@@ -19,13 +19,18 @@ if (isset($postArgs['ID'])) {
 } else {
     $id = wp_insert_post($postArgs);
 }
+var_dump('location');
+var_dump($device->location);
 
 if(isset($device->location)){
-    update_post_meta($id, 'location', ($device->location ? $device->location : "unknown"));
+    update_post_meta($id, 'location', ($device->location ? $device->location : ""));
 }
 
+var_dump('schedule');
+var_dump($device->schedule);
+
 if(isset($device->schedule)){
-    update_post_meta($id, 'schedule', ($device->schedule ? $device->schedule : "unknown"));
+    update_post_meta($id, 'schedule', ($device->schedule ? $device->schedule : ""));
 }
 
 $post = get_post($id);
