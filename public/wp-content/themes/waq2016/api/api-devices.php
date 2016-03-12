@@ -21,11 +21,11 @@ if (isset($postArgs['ID'])) {
 }
 
 if(isset($device->location)){
-    update_post_meta($id, 'location', ($device->location ? $device->location : ""));
+    update_post_meta($id, 'location', ($device->location ? $device->location : "unknown"));
 }
 
 if(isset($device->schedule)){
-    update_post_meta($id, 'schedule', ($device->schedule ? $device->schedule : ""));
+    update_post_meta($id, 'schedule', ($device->schedule ? $device->schedule : "unknown"));
 }
 
 $post = get_post($id);
