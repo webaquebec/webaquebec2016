@@ -20,6 +20,10 @@ if (isset($postArgs['ID'])) {
     $id = wp_insert_post($postArgs);
 }
 
+if(isset($device->notifid)){
+    update_post_meta($id, 'notifid', ($device->notifid ? $device->notifid : ""));
+}
+
 if(isset($device->type)){
     update_post_meta($id, 'type', ($device->type ? $device->type : ""));
 }
