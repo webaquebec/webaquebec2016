@@ -21,7 +21,7 @@ if (isset($postArgs['ID'])) {
 }
 
 if(isset($device->type)){
-    update_post_meta($id, 'location', ($device->type ? $device->type : ""));
+    update_post_meta($id, 'type', ($device->type ? $device->type : ""));
 }
 
 if(isset($device->location)){
