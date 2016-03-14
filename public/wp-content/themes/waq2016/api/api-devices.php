@@ -1,4 +1,8 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    header('Access-Control-Allow-Origin: *');
+  exit;
+}
 
 $postdata = file_get_contents("php://input");
 $device = json_decode($postdata);
