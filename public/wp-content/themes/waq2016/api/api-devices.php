@@ -44,6 +44,7 @@ if(isset($device->schedule)){
 $post = get_post($id);
 $metas = get_post_meta($post->ID);
 $post = array_merge((array) $post,(array) $metas);
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 echo json_encode($post);
 
