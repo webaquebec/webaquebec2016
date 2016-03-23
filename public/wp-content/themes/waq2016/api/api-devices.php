@@ -35,6 +35,7 @@ if(isset($device->type)){
 
 if(isset($device->location)){
     update_post_meta($id, 'location', ($device->location ? $device->location : ""));
+    update_post_meta($id, 'lastUpdate', ($device->lastUpdate ? $device->lastUpdate : ""));
 }
 
 if(isset($device->schedule)){
