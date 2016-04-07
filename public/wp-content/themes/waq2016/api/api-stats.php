@@ -27,7 +27,6 @@ function waq2016_get_devices_count_for_room($roomId){
     $querystr = "
     SELECT wposts.*
     FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta
-
     WHERE wposts.ID = wpostmeta.post_id
     AND (wpostmeta.meta_key = 'location' AND (wpostmeta.meta_value LIKE '%,".$roomId.",%' OR wpostmeta.meta_value LIKE '".$roomId.",%' OR wpostmeta.meta_value LIKE '%,".$roomId."' OR wpostmeta.meta_value LIKE '".$roomId."'))
     AND wposts.post_type = 'device'
@@ -38,10 +37,15 @@ function waq2016_get_devices_count_for_room($roomId){
     $querystr = "
     SELECT wposts.*
     FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta
-
     WHERE wposts.ID = wpostmeta.post_id
     AND (wpostmeta.meta_key = 'location' AND (wpostmeta.meta_value LIKE '%,".$roomId.",%' OR wpostmeta.meta_value LIKE '".$roomId.",%' OR wpostmeta.meta_value LIKE '%,".$roomId."' OR wpostmeta.meta_value LIKE '".$roomId."'))
-    AND (wpostmeta.meta_key = 'lastUpdate' AND wpostmeta.meta_value < ".$fifteen.")
+    AND wpostmeta.post_id IN (
+        SELECT wpostmeta2.post_id
+        FROM $wpdb->posts wposts2, $wpdb->postmeta wpostmeta2
+        WHERE wposts2.ID = wpostmeta2.post_id
+        AND wposts2.post_type = 'device'
+        AND wposts2.post_status = 'publish'
+        AND (wpostmeta2.meta_key = 'lastUpdate' AND wpostmeta2.meta_value < ".$fifteen."))
     AND wposts.post_type = 'device'
     AND wposts.post_status = 'publish'
     ";
@@ -53,7 +57,13 @@ function waq2016_get_devices_count_for_room($roomId){
 
     WHERE wposts.ID = wpostmeta.post_id
     AND (wpostmeta.meta_key = 'location' AND (wpostmeta.meta_value LIKE '%,".$roomId.",%' OR wpostmeta.meta_value LIKE '".$roomId.",%' OR wpostmeta.meta_value LIKE '%,".$roomId."' OR wpostmeta.meta_value LIKE '".$roomId."'))
-    AND (wpostmeta.meta_key = 'lastUpdate' AND wpostmeta.meta_value < ".$thirty.")
+    AND wpostmeta.post_id IN (
+        SELECT wpostmeta2.post_id
+        FROM $wpdb->posts wposts2, $wpdb->postmeta wpostmeta2
+        WHERE wposts2.ID = wpostmeta2.post_id
+        AND wposts2.post_type = 'device'
+        AND wposts2.post_status = 'publish'
+        AND (wpostmeta2.meta_key = 'lastUpdate' AND wpostmeta2.meta_value < ".$thirty."))
     AND wposts.post_type = 'device'
     AND wposts.post_status = 'publish'
     ";
@@ -65,7 +75,13 @@ function waq2016_get_devices_count_for_room($roomId){
 
     WHERE wposts.ID = wpostmeta.post_id
     AND (wpostmeta.meta_key = 'location' AND (wpostmeta.meta_value LIKE '%,".$roomId.",%' OR wpostmeta.meta_value LIKE '".$roomId.",%' OR wpostmeta.meta_value LIKE '%,".$roomId."' OR wpostmeta.meta_value LIKE '".$roomId."'))
-    AND (wpostmeta.meta_key = 'lastUpdate' AND wpostmeta.meta_value < ".$fortyfive.")
+    AND wpostmeta.post_id IN (
+        SELECT wpostmeta2.post_id
+        FROM $wpdb->posts wposts2, $wpdb->postmeta wpostmeta2
+        WHERE wposts2.ID = wpostmeta2.post_id
+        AND wposts2.post_type = 'device'
+        AND wposts2.post_status = 'publish'
+        AND (wpostmeta2.meta_key = 'lastUpdate' AND wpostmeta2.meta_value < ".$fortyfive."))
     AND wposts.post_type = 'device'
     AND wposts.post_status = 'publish'
     ";
@@ -77,7 +93,13 @@ function waq2016_get_devices_count_for_room($roomId){
 
     WHERE wposts.ID = wpostmeta.post_id
     AND (wpostmeta.meta_key = 'location' AND (wpostmeta.meta_value LIKE '%,".$roomId.",%' OR wpostmeta.meta_value LIKE '".$roomId.",%' OR wpostmeta.meta_value LIKE '%,".$roomId."' OR wpostmeta.meta_value LIKE '".$roomId."'))
-    AND (wpostmeta.meta_key = 'lastUpdate' AND wpostmeta.meta_value < ".$hour.")
+    AND wpostmeta.post_id IN (
+        SELECT wpostmeta2.post_id
+        FROM $wpdb->posts wposts2, $wpdb->postmeta wpostmeta2
+        WHERE wposts2.ID = wpostmeta2.post_id
+        AND wposts2.post_type = 'device'
+        AND wposts2.post_status = 'publish'
+        AND (wpostmeta2.meta_key = 'lastUpdate' AND wpostmeta2.meta_value < ".$hour."))
     AND wposts.post_type = 'device'
     AND wposts.post_status = 'publish'
     ";
